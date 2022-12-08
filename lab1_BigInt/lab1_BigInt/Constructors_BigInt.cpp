@@ -58,8 +58,6 @@ BigInt::~BigInt()
 
 ostream& operator <<(ostream& o, const BigInt& i)
 {
-	if (i.sign == false and i.digits.front() != 0)
-		o.put('-');
 	string str = string(i);
 	for (long long j = 0; j < str.size(); j++)
 		o.put(str[j]);

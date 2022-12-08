@@ -2,20 +2,43 @@
 
 BigInt operator ^(const BigInt& first_number, const BigInt& second_number)
 {
-	string first_bin_number = BigInt::to_bin(first_number);
-	string second_bin_number = BigInt::to_bin(second_number);
+	string first_bin_number;
+	string second_bin_number;
+
+	if (first_number.sign == true)
+		first_bin_number = BigInt::to_bin_positive(first_number);
+	else
+		first_bin_number = BigInt::to_bin_negative(first_number);
+
+	if (second_number.sign == true)
+		second_bin_number = BigInt::to_bin_positive(second_number);
+	else
+		second_bin_number = BigInt::to_bin_negative(second_number);
+
 	string XORed;
 
 	first_bin_number = reverse(first_bin_number);
 	second_bin_number = reverse(second_bin_number);
 	
 	if (first_bin_number.size() != second_bin_number.size())
+	{
 		if (first_bin_number.size() < second_bin_number.size())
 			while (first_bin_number.size() != second_bin_number.size())
-				first_bin_number += '0';
+			{
+				if (first_number.sign == true)
+					first_bin_number += '0';
+				else
+					first_bin_number += '1';
+			}
 		else
 			while (first_bin_number.size() != second_bin_number.size())
-				second_bin_number += '0';
+			{
+				if (second_number.sign == true)
+					second_bin_number += '0';
+				else
+					second_bin_number += '1';
+			}
+	}
 
 	for (long long i = 0; i < first_bin_number.size(); i++)
 	{
@@ -27,14 +50,30 @@ BigInt operator ^(const BigInt& first_number, const BigInt& second_number)
 			else
 				XORed += '0';
 	}
+
 	XORed = reverse(XORed);
-	return BigInt::to_dec(XORed);
+
+	if (first_number.sign == second_number.sign)
+		return BigInt::to_dec_positive(XORed);
+	else
+		return BigInt::to_dec_negative(XORed);
+	
 }
 
 BigInt operator &(const BigInt& first_number, const BigInt& second_number)
 {
-	string first_bin_number = BigInt::to_bin(first_number);
-	string second_bin_number = BigInt::to_bin(second_number);
+	string first_bin_number;
+	string second_bin_number;
+
+	if (first_number.sign == true)
+		first_bin_number = BigInt::to_bin_positive(first_number);
+	else
+		first_bin_number = BigInt::to_bin_negative(first_number);
+
+	if (second_number.sign == true)
+		second_bin_number = BigInt::to_bin_positive(second_number);
+	else
+		second_bin_number = BigInt::to_bin_negative(second_number);
 
 	string ANDed;
 
@@ -42,12 +81,24 @@ BigInt operator &(const BigInt& first_number, const BigInt& second_number)
 	second_bin_number = reverse(second_bin_number);
 
 	if (first_bin_number.size() != second_bin_number.size())
+	{
 		if (first_bin_number.size() < second_bin_number.size())
 			while (first_bin_number.size() != second_bin_number.size())
-				first_bin_number += '0';
+			{
+				if (first_number.sign == true)
+					first_bin_number += '0';
+				else
+					first_bin_number += '1';
+			}
 		else
 			while (first_bin_number.size() != second_bin_number.size())
-				second_bin_number += '0';
+			{
+				if (second_number.sign == true)
+					second_bin_number += '0';
+				else
+					second_bin_number += '1';
+			}
+	}
 
 	for (long long i = 0; i < first_bin_number.size(); i++)
 	{
@@ -57,13 +108,27 @@ BigInt operator &(const BigInt& first_number, const BigInt& second_number)
 			ANDed += '0';
 	}
 	ANDed = reverse(ANDed);
-	return BigInt::to_dec(ANDed);
+
+	if (first_number.sign == true or second_number.sign == true)
+		return BigInt::to_dec_positive(ANDed);
+	else
+		return BigInt::to_dec_negative(ANDed);
 }
 
 BigInt operator |(const BigInt& first_number, const BigInt& second_number)
 {
-	string first_bin_number = BigInt::to_bin(first_number);
-	string second_bin_number = BigInt::to_bin(second_number);
+	string first_bin_number;
+	string second_bin_number;
+
+	if (first_number.sign == true)
+		first_bin_number = BigInt::to_bin_positive(first_number);
+	else
+		first_bin_number = BigInt::to_bin_negative(first_number);
+
+	if (second_number.sign == true)
+		second_bin_number = BigInt::to_bin_positive(second_number);
+	else
+		second_bin_number = BigInt::to_bin_negative(second_number);
 
 	string ORed;
 
@@ -71,12 +136,24 @@ BigInt operator |(const BigInt& first_number, const BigInt& second_number)
 	second_bin_number = reverse(second_bin_number);
 
 	if (first_bin_number.size() != second_bin_number.size())
+	{
 		if (first_bin_number.size() < second_bin_number.size())
 			while (first_bin_number.size() != second_bin_number.size())
-				first_bin_number += '0';
+			{
+				if (first_number.sign == true)
+					first_bin_number += '0';
+				else
+					first_bin_number += '1';
+			}
 		else
 			while (first_bin_number.size() != second_bin_number.size())
-				second_bin_number += '0';
+			{
+				if (second_number.sign == true)
+					second_bin_number += '0';
+				else
+					second_bin_number += '1';
+			}
+	}
 
 	for (long long i = 0; i < first_bin_number.size(); i++)
 	{
@@ -86,5 +163,10 @@ BigInt operator |(const BigInt& first_number, const BigInt& second_number)
 			ORed += '0';
 	}
 	ORed = reverse(ORed);
-	return BigInt::to_dec(ORed);
+
+	if (first_number.sign == false or second_number.sign == false)
+		return BigInt::to_dec_negative(ORed);
+	else
+		return BigInt::to_dec_positive(ORed);
+
 }

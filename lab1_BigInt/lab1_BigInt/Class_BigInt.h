@@ -31,15 +31,17 @@ public:
     static bool even(BigInt);
     static BigInt multiply(BigInt, BigInt);
     static BigInt division(BigInt, BigInt, bool);
-    static string to_bin(BigInt);
-    static BigInt to_dec(string);
+    static string to_bin_positive(BigInt);
+    static string to_bin_negative(BigInt);
+    static BigInt to_dec_positive(string);
+    static BigInt to_dec_negative(string);
 
     BigInt& operator=(const BigInt& number)
     {
         (*this).digits = number.digits;
         (*this).sign = number.sign;
         return (*this);
-    };
+    }; 
 
     BigInt operator~() const
     {};
@@ -144,7 +146,6 @@ public:
         return false;
     };
 
-    
     operator int() const
     {
         if ((*this).digits.size() > 2)
@@ -198,22 +199,20 @@ public:
         return str;
     };
     
-
-
     size_t size() const
     {
         return sizeof(digits);
     };
 };
 
-BigInt operator+(const BigInt&, const BigInt&);
-BigInt operator-(const BigInt&, const BigInt&);
-BigInt operator*(const BigInt&, const BigInt&);
-BigInt operator/(const BigInt&, const BigInt&);
-BigInt operator^(const BigInt&, const BigInt&);
-BigInt operator%(const BigInt&, const BigInt&);
-BigInt operator&(const BigInt&, const BigInt&);
-BigInt operator|(const BigInt&, const BigInt&);
+BigInt operator+(const BigInt&, const BigInt&); //
+BigInt operator-(const BigInt&, const BigInt&); //
+BigInt operator*(const BigInt&, const BigInt&); //
+BigInt operator/(const BigInt&, const BigInt&); //exeption 
+BigInt operator^(const BigInt&, const BigInt&); //
+BigInt operator%(const BigInt&, const BigInt&); //
+BigInt operator&(const BigInt&, const BigInt&); //
+BigInt operator|(const BigInt&, const BigInt&); //
 
 ostream& operator <<(ostream& o, const BigInt& i);
 

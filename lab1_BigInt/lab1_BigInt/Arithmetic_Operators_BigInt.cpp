@@ -115,12 +115,10 @@ BigInt operator /(const BigInt& number1, const BigInt& number2)
 	if (number1 == number2)
 		return 1;
 
-	if (number1 < number2)
+	if (number1.digits.size() < number2.digits.size())
 		return 0;
 
-	BigInt first_number = number1;
-	BigInt second_number = number2;
-	if (second_number.digits.size() == 1)
+	/*if (second_number.digits.size() == 1)
 	{
 		int second_number_int = second_number.digits.front();
 		int modulo = 0;
@@ -134,6 +132,9 @@ BigInt operator /(const BigInt& number1, const BigInt& number2)
 		first_number.sign = (first_number.sign == second_number.sign);
 		return BigInt::remove_leading_zeroes(first_number);
 	}
+	*/
+	BigInt first_number = number1;
+	BigInt second_number = number2;
 	
 	BigInt result = BigInt::division(first_number, second_number, 1);
 	result.sign = (first_number.sign == second_number.sign);
@@ -146,5 +147,7 @@ BigInt operator %(const BigInt& number1, const BigInt& number2)
 	BigInt second_number = number2;
 
 	BigInt result = BigInt::division(first_number, second_number, 0);
+	result.sign = (first_number.sign == second_number.sign);
+
 	return result;
 }

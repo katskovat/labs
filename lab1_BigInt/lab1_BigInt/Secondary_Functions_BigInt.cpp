@@ -102,15 +102,6 @@ BigInt BigInt::multiply(BigInt first_number, BigInt second_number)
 	}
 	if (mod != 0)
 		result_number.digits[0] += mod;
-	/*for (long long i = first_number.digits.size() - 1; i >= 0; i--)
-	{
-		for (long long j = second_number.digits.size() - 1; j >= 0; j--)
-		{
-			long long tmp = (long long)first_number.digits[i] * (long long)second_number.digits[j];
-			result_number.digits[i + j + 1] += tmp % base;
-			result_number.digits[i + j] += tmp / base;
-		}
-	}*/
 	result_number = remove_leading_zeroes(result_number);
 	return result_number;
 }
@@ -118,6 +109,10 @@ BigInt BigInt::multiply(BigInt first_number, BigInt second_number)
 BigInt BigInt::division(BigInt first_number, BigInt second_number, bool whats_return)
 {
 	BigInt result = 0;
+	BigInt tmp = 1;
+	first_number.sign = true;
+	second_number.sign = true;
+
 	while (first_number >= second_number)
 	{
 		result++;
@@ -126,10 +121,11 @@ BigInt BigInt::division(BigInt first_number, BigInt second_number, bool whats_re
 	if (whats_return == 0) //if 0 -- modulo, if 1 -- division result
 		return first_number;
 	else
-		return result; 
+		return result;
+	
 }
 
-string BigInt::to_bin(BigInt number)
+string BigInt::to_bin_positive(BigInt number)
 {
 	long long i = 0;
 	BigInt power = 2;
@@ -147,7 +143,8 @@ string BigInt::to_bin(BigInt number)
 	}
 	std::reverse(powers_of_two.begin(), powers_of_two.end());
 	string binary;
-	for (int i = 0; i < powers_of_two.size(); i++)
+
+	for (long long i = 0; i < powers_of_two.size(); i++)
 	{
 		if ((number - powers_of_two[i]) >= border)
 		{
@@ -157,13 +154,69 @@ string BigInt::to_bin(BigInt number)
 		else
 			binary += '0';
 	}
-	while (binary.size() != powers_of_two.size())
-		binary += '0';
+	//while (binary.size() != powers_of_two.size())
+		//binary += '0';
 	powers_of_two.clear();
 	return binary;
 }
 
-BigInt BigInt::to_dec(string bin_number)
+string BigInt::to_bin_negative(BigInt number)
+{
+	number.sign = true;
+	long long i = 0;
+	BigInt power = 2;
+	BigInt border = 0;
+	vector <BigInt> powers_of_two;
+	powers_of_two.push_back(1);
+	while (powers_of_two[i] <= number)
+	{
+		powers_of_two.push_back(powers_of_two[i] * power);
+		i++;
+	}
+	if (powers_of_two[i] > number)
+	{
+		powers_of_two.pop_back();
+	}
+	std::reverse(powers_of_two.begin(), powers_of_two.end());
+	string binary;
+
+	for (long long i = 0; i < powers_of_two.size(); i++)
+	{
+		if ((number - powers_of_two[i]) >= border)
+		{
+			binary += '0';
+			number -= powers_of_two[i];
+		}
+		else
+			binary += '1';
+	}
+	if (binary.back() == '0')
+		binary.back() = '1';
+	else
+	{
+		bool flag = 0;
+		for (long long i = binary.size() - 1; i >= 0; i--)
+		{
+			if (binary[i] == '0')
+			{
+				binary[i] = '1';
+				flag = 1;
+				break;
+			}
+			else
+				binary[i] = '0';
+		}
+		if (flag == 0)
+			binary.insert(binary.begin(), '1');
+	}
+
+	//while (binary.front() == '0')
+		//binary.erase(0, 1);
+
+	powers_of_two.clear();
+	return binary;
+}
+BigInt BigInt::to_dec_positive(string bin_number)
 {
 	bin_number = reverse(bin_number);
 	BigInt dec_number = 0;
@@ -178,6 +231,45 @@ BigInt BigInt::to_dec(string bin_number)
 			dec_number += tmp;
 		}
 	}
+
+	return dec_number;
+}
+BigInt BigInt::to_dec_negative(string bin_number)
+{
+	bin_number = reverse(bin_number);
+	BigInt dec_number = 0;
+	BigInt tmp = 1;
+
+	for (long long i = 0; i < bin_number.size(); i++)
+	{
+		if (bin_number[i] == '1')
+		{
+			bin_number[i] = '0';
+			break;
+		}
+		else
+			bin_number[i] = '1';
+	}
+
+	for (long long i = 0; i < bin_number.size(); i++)
+	{
+		if (bin_number[i] == '0')
+			bin_number[i] = '1';
+		else
+			bin_number[i] = '0';
+	}
+
+	if (bin_number[0] == '1')
+		dec_number += tmp;
+	for (int i = 1; i < bin_number.size(); i++)
+	{
+		tmp *= 2;
+		if (bin_number[i] == '1')
+		{
+			dec_number += tmp;
+		}
+	}
+	dec_number.sign = false;
 	return dec_number;
 }
 string reverse(string str)

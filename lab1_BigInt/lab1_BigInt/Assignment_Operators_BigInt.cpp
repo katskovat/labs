@@ -27,12 +27,12 @@ BigInt& BigInt::operator %=(const BigInt& number)
 
 BigInt& BigInt::operator ^=(const BigInt& number)
 {
-	return *this = *this % number;
+	return *this = *this ^ number;
 }
 
 BigInt& BigInt::operator &=(const BigInt& number)
 {
-	return *this = *this % number;
+	return *this = *this & number;
 }
 
 BigInt& BigInt::operator |=(const BigInt& number)

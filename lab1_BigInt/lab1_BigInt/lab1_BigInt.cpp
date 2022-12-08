@@ -2,10 +2,15 @@
 
 int main()
 {
-    string first_number = "8993129889321";
-    string second_number = "7823312988321";
-    BigInt firstBigIntNumber = first_number;
-    BigInt secondBigIntNumber = second_number;
-    cout << (firstBigIntNumber ^ secondBigIntNumber);
+    BigInt first_number = BigInt("5943524289824899824");
+    BigInt second_number = BigInt("403909023903");
+
+    BigInt number = BigInt("5943524289824899823");
+    BigInt number2 = BigInt("354398423989423");
+    BigInt answer = BigInt("5943310646069231168");
+    number ^= number2;
+
+    cout << (answer) << "\n";
+    cout << (number);
     return 0;
 }
