@@ -118,21 +118,6 @@ BigInt operator /(const BigInt& number1, const BigInt& number2)
 	if (number1.digits.size() < number2.digits.size())
 		return 0;
 
-	/*if (second_number.digits.size() == 1)
-	{
-		int second_number_int = second_number.digits.front();
-		int modulo = 0;
-		long long composition = 0;
-		for (long long i = 0; i < first_number.digits.size(); i++)
-		{
-			composition = (long long)first_number.digits[i] + (long long)modulo * (long long)BigInt::base;
-			first_number.digits[i] = composition / second_number_int;
-			modulo = composition % second_number_int;
-		}
-		first_number.sign = (first_number.sign == second_number.sign);
-		return BigInt::remove_leading_zeroes(first_number);
-	}
-	*/
 	BigInt first_number = number1;
 	BigInt second_number = number2;
 	

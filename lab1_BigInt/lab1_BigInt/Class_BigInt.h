@@ -16,7 +16,7 @@ public:
 
     BigInt();
     BigInt(int);
-    BigInt(std::string); // бросать исключение std::invalid_argument при ошибке
+    BigInt(std::string);
     BigInt(const BigInt&);
     ~BigInt();
 
@@ -24,11 +24,6 @@ public:
     static BigInt remove_leading_zeroes(BigInt);
     static BigInt r_add_cells(BigInt, int);
     static BigInt l_add_cells(BigInt, int);
-    static BigInt max(BigInt, BigInt);
-    static BigInt min(BigInt, BigInt);
-    static long long size(BigInt);
-    static BigInt abs(BigInt);
-    static bool even(BigInt);
     static BigInt multiply(BigInt, BigInt);
     static BigInt division(BigInt, BigInt, bool);
     static string to_bin_positive(BigInt);
@@ -205,14 +200,14 @@ public:
     };
 };
 
-BigInt operator+(const BigInt&, const BigInt&); //
-BigInt operator-(const BigInt&, const BigInt&); //
-BigInt operator*(const BigInt&, const BigInt&); //
-BigInt operator/(const BigInt&, const BigInt&); //exeption 
-BigInt operator^(const BigInt&, const BigInt&); //
-BigInt operator%(const BigInt&, const BigInt&); //
-BigInt operator&(const BigInt&, const BigInt&); //
-BigInt operator|(const BigInt&, const BigInt&); //
+BigInt operator+(const BigInt&, const BigInt&); 
+BigInt operator-(const BigInt&, const BigInt&); 
+BigInt operator*(const BigInt&, const BigInt&); 
+BigInt operator/(const BigInt&, const BigInt&); 
+BigInt operator^(const BigInt&, const BigInt&); 
+BigInt operator%(const BigInt&, const BigInt&); 
+BigInt operator&(const BigInt&, const BigInt&); 
+BigInt operator|(const BigInt&, const BigInt&);
 
 ostream& operator <<(ostream& o, const BigInt& i);
 

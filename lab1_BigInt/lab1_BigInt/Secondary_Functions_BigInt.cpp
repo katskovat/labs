@@ -47,37 +47,6 @@ BigInt BigInt::remove_leading_zeroes(BigInt number)
 	return number;
 }
 
-BigInt BigInt::max(BigInt first_number, BigInt second_number)
-{
-	if (first_number > second_number)
-		return first_number;
-	return second_number;
-}
-BigInt BigInt::min(BigInt first_number, BigInt second_number)
-{
-	if (first_number < second_number)
-		return first_number;
-	return second_number;
-}
-
-long long BigInt::size(BigInt number)
-{
-	return (number.digits.size() - 1) * base_length + to_string(number.digits.front()).size();
-}
-
-BigInt BigInt::abs(BigInt number)
-{
-	number.sign = true;
-	return number;
-}
-
-bool BigInt::even(BigInt number)
-{
-	if (number.digits.back() % 2 == 0)
-		return true;
-	return false;
-}
-
 BigInt BigInt::multiply(BigInt first_number, BigInt second_number)
 {
 	BigInt result_number;
@@ -154,8 +123,6 @@ string BigInt::to_bin_positive(BigInt number)
 		else
 			binary += '0';
 	}
-	//while (binary.size() != powers_of_two.size())
-		//binary += '0';
 	powers_of_two.clear();
 	return binary;
 }
@@ -209,9 +176,6 @@ string BigInt::to_bin_negative(BigInt number)
 		if (flag == 0)
 			binary.insert(binary.begin(), '1');
 	}
-
-	//while (binary.front() == '0')
-		//binary.erase(0, 1);
 
 	powers_of_two.clear();
 	return binary;
