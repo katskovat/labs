@@ -39,7 +39,7 @@ BigInt BigInt::r_add_cells(BigInt number, int count)
 BigInt BigInt::remove_leading_zeroes(BigInt number)
 {
 	long long border = number.digits.size() - 1;
-	for (long long i = 0; i < number.digits.size() - 1; i = i + 1) {
+	for (int i = 0; i < number.digits.size() - 1; i = i + 1) {
 		if (number.digits[i] != 0) {
 			border = i;
 			break;
@@ -115,7 +115,7 @@ std::string BigInt::to_bin_positive(BigInt number)
 	std::reverse(powers_of_two.begin(), powers_of_two.end());
 	std::string binary;
 
-	for (long long i = 0; i < powers_of_two.size(); i++)
+	for (int i = 0; i < powers_of_two.size(); i++)
 	{
 		if ((number - powers_of_two[i]) >= border)
 		{
@@ -149,7 +149,7 @@ std::string BigInt::to_bin_negative(BigInt number)
 	std::reverse(powers_of_two.begin(), powers_of_two.end());
 	std::string binary;
 
-	for (long long i = 0; i < powers_of_two.size(); i++)
+	for (int i = 0; i < powers_of_two.size(); i++)
 	{
 		if ((number - powers_of_two[i]) >= border)
 		{
@@ -206,7 +206,7 @@ BigInt BigInt::to_dec_negative(std::string bin_number)
 	BigInt dec_number = 0;
 	BigInt tmp = 1;
 
-	for (long long i = 0; i < bin_number.size(); i++)
+	for (int i = 0; i < bin_number.size(); i++)
 	{
 		if (bin_number[i] == '1')
 		{
@@ -217,7 +217,7 @@ BigInt BigInt::to_dec_negative(std::string bin_number)
 			bin_number[i] = '1';
 	}
 
-	for (long long i = 0; i < bin_number.size(); i++)
+	for (int i = 0; i < bin_number.size(); i++)
 	{
 		if (bin_number[i] == '0')
 			bin_number[i] = '1';
@@ -306,7 +306,7 @@ BigInt::~BigInt()
 std::ostream& operator <<(std::ostream& o, const BigInt& i)
 {
 	std::string str = std::string(i);
-	for (long long j = 0; j < str.size(); j++)
+	for (int j = 0; j < str.size(); j++)
 		o.put(str[j]);
 	return o;
 };
@@ -384,7 +384,7 @@ BigInt operator ^(const BigInt& first_number, const BigInt& second_number)
 			}
 	}
 
-	for (long long i = 0; i < first_bin_number.size(); i++)
+	for (int i = 0; i < first_bin_number.size(); i++)
 	{
 		if (first_bin_number[i] == '0' and second_bin_number[i] == '1')
 			XORed += '1';
@@ -444,7 +444,7 @@ BigInt operator &(const BigInt& first_number, const BigInt& second_number)
 			}
 	}
 
-	for (long long i = 0; i < first_bin_number.size(); i++)
+	for (int i = 0; i < first_bin_number.size(); i++)
 	{
 		if (first_bin_number[i] == '1' and second_bin_number[i] == '1')
 			ANDed += '1';
@@ -499,7 +499,7 @@ BigInt operator |(const BigInt& first_number, const BigInt& second_number)
 			}
 	}
 
-	for (long long i = 0; i < first_bin_number.size(); i++)
+	for (int i = 0; i < first_bin_number.size(); i++)
 	{
 		if (first_bin_number[i] == '1' or second_bin_number[i] == '1')
 			ORed += '1';

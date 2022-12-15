@@ -76,6 +76,27 @@ TEST(MulBigInt3, TestName) { //-5943524289824899824 * -100000000000000000000
 }
 
 // /
+TEST(Div1, TestName) { //-5943524289824899824 * -100000000000000000000
+	BigInt number1 = BigInt("5943524289824899824");
+	BigInt number2 = BigInt("403909023903345");
+	BigInt tmp = number1 / number2;
+	BigInt answer = BigInt("14715");
+	ASSERT_EQ(answer, tmp);
+}
+
+TEST(Div2, TestName) { //-5943524289824899824 * -100000000000000000000
+	BigInt number1 = BigInt("5943524289824899824");
+	BigInt number2 = BigInt("-403909023903345");
+	BigInt tmp = number1 / number2;
+	BigInt answer = BigInt("-14715");
+	ASSERT_EQ(answer, tmp);
+}
+
+TEST(Div3, TestName) { //-5943524289824899824 * -100000000000000000000
+	BigInt answer = BigInt("16");
+	BigInt tmp = fourth_number / first_number;
+	ASSERT_EQ(answer, tmp);
+}
 
 // ^
 
@@ -408,5 +429,13 @@ TEST(String2, TestName) {
 TEST(String3, TestName) {
 	std::string answer = "10000000000000000000000";
 	std::string tmp = std::string(fourth_number);
+	ASSERT_EQ(answer, tmp);
+}
+
+// int()
+TEST(Int1, TestName)
+{
+	int answer = 645;
+	int tmp = int(third_number);
 	ASSERT_EQ(answer, tmp);
 }

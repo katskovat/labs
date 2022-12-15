@@ -99,7 +99,7 @@ public:
                 return false;
             if ((*this).digits.size() > number.digits.size())
                 return true;
-            for (long long i = 0; i < (*this).digits.size(); i++)
+            for (int i = 0; i < (*this).digits.size(); i++)
             {
                 if ((*this).digits[i] > number.digits[i])
                     return true;
@@ -115,7 +115,7 @@ public:
                 return true;
             if ((*this).digits.size() > number.digits.size())
                 return false;
-            for (long long i = 0; i < (*this).digits.size(); i++)
+            for (int i = 0; i < (*this).digits.size(); i++)
                 if ((*this).digits[i] > number.digits.size())
                     return false;
             return true;
@@ -196,7 +196,7 @@ public:
         return str;
     };
     
-    size_t size() const
+    int size() const
     {
         return sizeof(digits);
     };
