@@ -4,11 +4,10 @@
 #include <vector>
 #include <string>
 #include <math.h>
-using namespace std;
 
 class BigInt {
 public:
-    vector <int> digits;
+    std::vector <int> digits;
     bool sign;
     static const int base = 1000000000;
     static const int base_length = 9;
@@ -20,16 +19,16 @@ public:
     BigInt(const BigInt&);
     ~BigInt();
 
-    static vector <int> from_string_to_vector(const string& string);
+    static std::vector <int> from_string_to_vector(const std::string& string);
     static BigInt remove_leading_zeroes(BigInt);
     static BigInt r_add_cells(BigInt, int);
     static BigInt l_add_cells(BigInt, int);
     static BigInt multiply(BigInt, BigInt);
     static BigInt division(BigInt, BigInt, bool);
-    static string to_bin_positive(BigInt);
-    static string to_bin_negative(BigInt);
-    static BigInt to_dec_positive(string);
-    static BigInt to_dec_negative(string);
+    static std::string to_bin_positive(BigInt);
+    static std::string to_bin_negative(BigInt);
+    static BigInt to_dec_positive(std::string);
+    static BigInt to_dec_negative(std::string);
 
     BigInt& operator=(const BigInt& number)
     {
@@ -143,14 +142,17 @@ public:
 
     operator int() const
     {
-        if ((*this).digits.size() > 2)
-            throw invalid_argument("Too big number. Cannot be converted to int.");
-        if ((*this).digits.size() == 2)
-            if ((*this).digits[0] > 2)
-                throw invalid_argument("Too big number. Cannot be converted to int.");
+        int MAX_LEN_INT = 9 * 2;
+        if (((*this).digits.size() * base_length) > MAX_LEN_INT)
+            throw std::invalid_argument("Too big number. Cannot be converted to int.");
+
+        if (((*this).digits.size() * base_length) == MAX_LEN_INT)
+            if ((*this).digits[0] > (INT_MAX / base))
+                throw std::invalid_argument("Too big number. Cannot be converted to int.");
             else
-                if (((*this).digits[1] > 147483647 && (*this).sign == true) || ((*this).digits[1] > 147483648 && (*this).sign == false))
-                    throw invalid_argument("Too big number. Cannot be converted to int.");
+                if (((*this).digits[1] > (INT_MAX % base) && (*this).sign == true) || ((*this).digits[1] > abs(INT_MIN % base) && (*this).sign == false))
+                    throw std::invalid_argument("Too big number. Cannot be converted to int.");
+
         int iteration = 0;
         int number = 0;
         for (int i = (*this).digits.size() - 1; i >= 0; i--)
@@ -171,10 +173,10 @@ public:
 
     operator std::string() const
     {
-        string str;
+        std::string str;
         if ((*this).sign == false && (*this).digits.front() != 0)
             str += '-';
-        str += to_string((*this).digits[0]);
+        str += std::to_string((*this).digits[0]);
         for (int j = 1; j < (*this).digits.size(); j++)
         {
             int len = 0;
@@ -189,7 +191,7 @@ public:
                 str += '0';
                 len++;
             }
-            str += to_string((*this).digits[j]);
+            str += std::to_string((*this).digits[j]);
         }
         return str;
     };
@@ -209,6 +211,6 @@ BigInt operator%(const BigInt&, const BigInt&);
 BigInt operator&(const BigInt&, const BigInt&); 
 BigInt operator|(const BigInt&, const BigInt&);
 
-ostream& operator <<(ostream& o, const BigInt& i);
+std::ostream& operator <<(std::ostream& o, const BigInt& i);
 
-string reverse(string);
+std::string reverse(std::string);

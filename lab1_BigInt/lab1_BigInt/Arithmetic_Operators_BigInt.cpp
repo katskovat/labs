@@ -110,7 +110,7 @@ BigInt operator *(const BigInt& number1, const BigInt& number2)
 BigInt operator /(const BigInt& number1, const BigInt& number2)
 {
 	if (number2.digits.size() == 1 and number2.digits[0] == 0)
-		throw invalid_argument("Fatal error. Disivion by zero isn't possible.");
+		throw std::invalid_argument("Fatal error. Disivion by zero isn't possible.");
 
 	if (number1 == number2)
 		return 1;

@@ -394,19 +394,19 @@ TEST(EqualLess4, TestName) {
 
 // string()
 TEST(String1, TestName) {
-	string answer = "5943524289824899824";
-	string tmp = string(first_number);
+	std::string answer = "5943524289824899824";
+	std::string tmp = std::string(first_number);
 	ASSERT_EQ(answer, tmp);
 }
 
 TEST(String2, TestName) {
-	string answer = "-5943524289824899824";
-	string tmp = string(first_negative_number);
+	std::string answer = "-5943524289824899824";
+	std::string tmp = std::string(first_negative_number);
 	ASSERT_EQ(answer, tmp);
 }
 
 TEST(String3, TestName) {
-	string answer = "10000000000000000000000";
-	string tmp = string(fourth_number);
+	std::string answer = "10000000000000000000000";
+	std::string tmp = std::string(fourth_number);
 	ASSERT_EQ(answer, tmp);
 }

@@ -10,7 +10,7 @@ int main()
     BigInt answer = BigInt("5943310646069231168");
     number ^= number2;
 
-    cout << (answer) << "\n";
-    cout << (number);
+    std::cout << (answer) << "\n";
+    std::cout << (number) << "\n";
     return 0;
 }

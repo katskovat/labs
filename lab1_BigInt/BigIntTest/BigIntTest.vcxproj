@@ -85,8 +85,8 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\user\source\repos\lab1_BigInt\lab1_BigInt\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Arithmetic_Operators_BigInt.obj;Assignment_Operators_BigInt.obj;Bitwise_Operators_BigInt.obj;Constructors_BigInt.obj;Unary_Operators_BigInt.obj;Secondary_Functions_BigInt.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\user\Documents\GitHub\labs\lab1_BigInt\lab1_BigInt\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Realization_BigInt.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
