@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "../lab1_BigInt/Class_BigInt.h"
-
+using namespace BigNum;
 BigInt first_number = BigInt("5943524289824899824");
 BigInt second_number = BigInt("403909023903");
 BigInt third_number = BigInt("645");

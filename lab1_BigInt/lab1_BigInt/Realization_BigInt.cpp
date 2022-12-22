@@ -1,5 +1,6 @@
 #include "Class_BigInt.h"
 
+using namespace BigNum;
 
 //SECONDARY FUNCTIONS
 std::vector <int> BigInt::from_string_to_vector(const std::string& str)
@@ -18,7 +19,6 @@ std::vector <int> BigInt::from_string_to_vector(const std::string& str)
 			result[res_position] = stoi(str.substr(str_position - base_length + 1, base_length));
 	return result;
 }
-
 
 BigInt BigInt::l_add_cells(BigInt number, int count)
 {
@@ -184,7 +184,7 @@ std::string BigInt::to_bin_negative(BigInt number)
 }
 BigInt BigInt::to_dec_positive(std::string bin_number)
 {
-	bin_number = reverse(bin_number);
+	std::reverse(bin_number.begin(), bin_number.end());
 	BigInt dec_number = 0;
 	BigInt tmp = 1;
 	if (bin_number[0] == '1')
@@ -202,7 +202,7 @@ BigInt BigInt::to_dec_positive(std::string bin_number)
 }
 BigInt BigInt::to_dec_negative(std::string bin_number)
 {
-	bin_number = reverse(bin_number);
+	std::reverse(bin_number.begin(), bin_number.end());
 	BigInt dec_number = 0;
 	BigInt tmp = 1;
 
@@ -238,14 +238,6 @@ BigInt BigInt::to_dec_negative(std::string bin_number)
 	dec_number.sign = false;
 	return dec_number;
 }
-std::string reverse(std::string str)
-{
-	std::string reversed_str;
-	for (long long i = str.size() - 1; i >= 0; i--)
-		reversed_str += str[i];
-	return reversed_str;
-}
-
 
 
 // CONSTRUCTORS
@@ -303,7 +295,7 @@ BigInt::~BigInt()
 	digits.clear();
 }
 
-std::ostream& operator <<(std::ostream& o, const BigInt& i)
+std::ostream& BigNum::operator <<(std::ostream& o, const BigInt& i)
 {
 	std::string str = std::string(i);
 	for (int j = 0; j < str.size(); j++)
@@ -344,7 +336,7 @@ const BigInt BigInt::operator--(int)
 
 //BITWISE OPERATORS
 
-BigInt operator ^(const BigInt& first_number, const BigInt& second_number)
+BigInt BigNum::operator ^(const BigInt& first_number, const BigInt& second_number)
 {
 	std::string first_bin_number;
 	std::string second_bin_number;
@@ -361,8 +353,8 @@ BigInt operator ^(const BigInt& first_number, const BigInt& second_number)
 
 	std::string XORed;
 
-	first_bin_number = reverse(first_bin_number);
-	second_bin_number = reverse(second_bin_number);
+	std::reverse(first_bin_number.begin(), first_bin_number.end());
+	std::reverse(second_bin_number.begin(), second_bin_number.end());
 
 	if (first_bin_number.size() != second_bin_number.size())
 	{
@@ -395,7 +387,7 @@ BigInt operator ^(const BigInt& first_number, const BigInt& second_number)
 				XORed += '0';
 	}
 
-	XORed = reverse(XORed);
+	reverse(XORed.begin(), XORed.end());
 
 	if (first_number.sign == second_number.sign)
 		return BigInt::to_dec_positive(XORed);
@@ -404,7 +396,7 @@ BigInt operator ^(const BigInt& first_number, const BigInt& second_number)
 
 }
 
-BigInt operator &(const BigInt& first_number, const BigInt& second_number)
+BigInt BigNum::operator &(const BigInt& first_number, const BigInt& second_number)
 {
 	std::string first_bin_number;
 	std::string second_bin_number;
@@ -421,8 +413,8 @@ BigInt operator &(const BigInt& first_number, const BigInt& second_number)
 
 	std::string ANDed;
 
-	first_bin_number = reverse(first_bin_number);
-	second_bin_number = reverse(second_bin_number);
+	std::reverse(first_bin_number.begin(), first_bin_number.end());
+	std::reverse(second_bin_number.begin(), second_bin_number.end());
 
 	if (first_bin_number.size() != second_bin_number.size())
 	{
@@ -451,7 +443,7 @@ BigInt operator &(const BigInt& first_number, const BigInt& second_number)
 		else
 			ANDed += '0';
 	}
-	ANDed = reverse(ANDed);
+	reverse(ANDed.begin(), ANDed.end());
 
 	if (first_number.sign == true or second_number.sign == true)
 		return BigInt::to_dec_positive(ANDed);
@@ -459,7 +451,7 @@ BigInt operator &(const BigInt& first_number, const BigInt& second_number)
 		return BigInt::to_dec_negative(ANDed);
 }
 
-BigInt operator |(const BigInt& first_number, const BigInt& second_number)
+BigInt BigNum::operator |(const BigInt& first_number, const BigInt& second_number)
 {
 	std::string first_bin_number;
 	std::string second_bin_number;
@@ -476,8 +468,8 @@ BigInt operator |(const BigInt& first_number, const BigInt& second_number)
 
 	std::string ORed;
 
-	first_bin_number = reverse(first_bin_number);
-	second_bin_number = reverse(second_bin_number);
+	std::reverse(first_bin_number.begin(), first_bin_number.end());
+	std::reverse(second_bin_number.begin(), second_bin_number.end());
 
 	if (first_bin_number.size() != second_bin_number.size())
 	{
@@ -506,7 +498,7 @@ BigInt operator |(const BigInt& first_number, const BigInt& second_number)
 		else
 			ORed += '0';
 	}
-	ORed = reverse(ORed);
+	reverse(ORed.begin(), ORed.end());
 
 	if (first_number.sign == false or second_number.sign == false)
 		return BigInt::to_dec_negative(ORed);
@@ -515,51 +507,9 @@ BigInt operator |(const BigInt& first_number, const BigInt& second_number)
 
 }
 
-//ASSIGNMENT OPERATORS
-
-BigInt& BigInt::operator +=(const BigInt& number)
-{
-	return *this = *this + number;
-}
-
-BigInt& BigInt::operator *=(const BigInt& number)
-{
-	return *this = *this * number;
-}
-
-BigInt& BigInt::operator -=(const BigInt& number)
-{
-	return *this = *this - number;
-}
-
-BigInt& BigInt::operator /=(const BigInt& number)
-{
-	return *this = *this / number;
-}
-
-BigInt& BigInt::operator %=(const BigInt& number)
-{
-	return *this = *this % number;
-}
-
-BigInt& BigInt::operator ^=(const BigInt& number)
-{
-	return *this = *this ^ number;
-}
-
-BigInt& BigInt::operator &=(const BigInt& number)
-{
-	return *this = *this & number;
-}
-
-BigInt& BigInt::operator |=(const BigInt& number)
-{
-	return *this = *this | number;
-}
-
 //ARITHMETIC OPERATORS
 
-BigInt operator +(const BigInt& number1, const BigInt& number2)
+BigInt BigNum::operator +(const BigInt& number1, const BigInt& number2)
 {
 	BigInt first_number = number1;
 	BigInt second_number = number2;
@@ -596,7 +546,7 @@ BigInt operator +(const BigInt& number1, const BigInt& number2)
 	return first_number;
 }
 
-BigInt operator -(const BigInt& number1, const BigInt& number2)
+BigInt BigNum::operator -(const BigInt& number1, const BigInt& number2)
 {
 	BigInt first_number = number1;
 	BigInt second_number = number2;
@@ -656,7 +606,7 @@ BigInt operator -(const BigInt& number1, const BigInt& number2)
 	return BigInt::remove_leading_zeroes(first_number);
 }
 
-BigInt operator *(const BigInt& number1, const BigInt& number2)
+BigInt BigNum::operator *(const BigInt& number1, const BigInt& number2)
 {
 	BigInt first_number = number1;
 	BigInt second_number = number2;
@@ -666,7 +616,7 @@ BigInt operator *(const BigInt& number1, const BigInt& number2)
 	return result_number;
 }
 
-BigInt operator /(const BigInt& number1, const BigInt& number2)
+BigInt BigNum::operator /(const BigInt& number1, const BigInt& number2)
 {
 	if (number2.digits.size() == 1 and number2.digits[0] == 0)
 		throw std::invalid_argument("Fatal error. Disivion by zero isn't possible.");
@@ -685,7 +635,7 @@ BigInt operator /(const BigInt& number1, const BigInt& number2)
 	return result;
 }
 
-BigInt operator %(const BigInt& number1, const BigInt& number2)
+BigInt BigNum::operator %(const BigInt& number1, const BigInt& number2)
 {
 	BigInt first_number = number1;
 	BigInt second_number = number2;
@@ -694,4 +644,188 @@ BigInt operator %(const BigInt& number1, const BigInt& number2)
 	result.sign = (first_number.sign == second_number.sign);
 
 	return result;
+}
+
+//ASSIGNMENT OPERATORS
+
+BigInt& BigInt::operator +=(const BigInt& number)
+{
+	return *this = *this + number;
+}
+
+BigInt& BigInt::operator *=(const BigInt& number)
+{
+	return *this = *this * number;
+}
+
+BigInt& BigInt::operator -=(const BigInt& number)
+{
+	return *this = *this - number;
+}
+
+BigInt& BigInt::operator /=(const BigInt& number)
+{
+	return *this = *this / number;
+}
+
+BigInt& BigInt::operator %=(const BigInt& number)
+{
+	return *this = *this % number;
+}
+
+BigInt& BigInt::operator ^=(const BigInt& number)
+{
+	return *this = *this ^ number;
+}
+
+BigInt& BigInt::operator &=(const BigInt& number)
+{
+	return *this = *this & number;
+}
+
+BigInt& BigInt::operator |=(const BigInt& number)
+{
+	return *this = *this | number;
+}
+
+
+// logical
+
+bool BigInt::operator==(const BigInt& number) const
+{
+	if ((*this).sign != number.sign)
+		return false;
+
+	if ((*this).digits.size() != number.digits.size())
+		return false;
+
+	for (int i = 0; i < number.digits.size(); i++)
+		if ((*this).digits[i] != number.digits[i])
+			return false;
+
+	return true;
+}
+
+bool BigInt::operator!=(const BigInt& number) const
+{
+	return !((*this) == number);
+}
+
+bool BigInt::operator>(const BigInt& number) const
+{
+	if ((*this) == number)
+		return false;
+
+	if ((*this).sign == false && number.sign == true)
+		return false;
+	if ((*this).sign == true && number.sign == false)
+		return true;
+
+	if ((*this).sign == true)
+	{
+		if ((*this).digits.size() < number.digits.size())
+			return false;
+		if ((*this).digits.size() > number.digits.size())
+			return true;
+		for (int i = 0; i < (*this).digits.size(); i++)
+		{
+			if ((*this).digits[i] > number.digits[i])
+				return true;
+			if ((*this).digits[i] < number.digits[i])
+				return false;
+		}
+		return true;
+	}
+
+	if ((*this).sign == false)
+	{
+		if ((*this).digits.size() < number.digits.size())
+			return true;
+		if ((*this).digits.size() > number.digits.size())
+			return false;
+		for (int i = 0; i < (*this).digits.size(); i++)
+			if ((*this).digits[i] > number.digits.size())
+				return false;
+		return true;
+	}
+}
+
+bool BigInt::operator<(const BigInt& number) const
+{
+	if ((*this) != number && !((*this) > number))
+		return true;
+	return false;
+}
+
+bool BigInt::operator<=(const BigInt& number) const
+{
+	if ((*this) < number || (*this) == number)
+		return true;
+	return false;
+}
+
+bool BigInt::operator>=(const BigInt& number) const
+{
+	if ((*this) > number || (*this) == number)
+		return true;
+	return false;
+}
+
+
+//change type
+
+BigInt::operator int() const
+{
+	int MAX_LEN_INT = 9 * 2;
+	if (((*this).digits.size() * base_length) > MAX_LEN_INT)
+		throw std::invalid_argument("Too big number. Cannot be converted to int.");
+
+	if (((*this).digits.size() * base_length) == MAX_LEN_INT)
+		if ((*this).digits[0] > (INT_MAX / base))
+			throw std::invalid_argument("Too big number. Cannot be converted to int.");
+		else
+			if (((*this).digits[1] > (INT_MAX % base) && (*this).sign == true) || ((*this).digits[1] > abs(INT_MIN % base) && (*this).sign == false))
+				throw std::invalid_argument("Too big number. Cannot be converted to int.");
+
+	int iteration = 0;
+	int number = 0;
+	for (int i = (*this).digits.size() - 1; i >= 0; i--)
+	{
+		if (iteration == 0)
+		{
+			number += (*this).digits[i];
+			iteration++;
+		}
+		else
+			number += (*this).digits[i] * base;
+	}
+	if ((*this).sign == true)
+		return number;
+	else
+		return -number;
+}
+
+BigInt::operator std::string() const
+{
+	std::string str;
+	if ((*this).sign == false && (*this).digits.front() != 0)
+		str += '-';
+	str += std::to_string((*this).digits[0]);
+	for (int j = 1; j < (*this).digits.size(); j++)
+	{
+		int len = 0;
+		int num = (*this).digits[j];
+		while (num > 0)
+		{
+			num /= 10;
+			len++;
+		}
+		while (len != 9)
+		{
+			str += '0';
+			len++;
+		}
+		str += std::to_string((*this).digits[j]);
+	}
+	return str;
 }

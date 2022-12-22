@@ -1,5 +1,6 @@
 ﻿#include "Class_BigInt.h"
 
+using namespace BigNum;
 int main()
 {
     BigInt first_number = BigInt("100000000000000000000");
