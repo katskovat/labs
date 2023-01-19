@@ -1,8 +1,8 @@
 #include "Header.h" 
 
 char IStrategy::Getchoice(short game_type, int p, std::vector<int> _score, std::vector<std::vector<char>> _roundes, std::vector<char> _roundechoices)
-{ 
-    return 0; 
+{
+    return 0;
 };
 
 char StrategyRand::Getchoice(short game_type, int p, std::vector<int> _score, std::vector<std::vector<char>> _roundes, std::vector<char> _roundechoices) {
@@ -51,9 +51,10 @@ char StrategyAlwaysD::Getchoice(short game_type, int p, std::vector<int> _score,
 };
 
 char StrategyWinRound::Getchoice(short game_type, int p, std::vector<int> _score, std::vector<std::vector<char>> _roundes, std::vector<char> _roundechoices) {
-    int max = _score[0];
-    if (max < _score[1])max = _score[1];
-    if (max < _score[2])max = _score[2];
+    int max = 0;
+    if ((max < _score[0]) && (p != 0))max = _score[0];;
+    if ((max < _score[1]) && (p != 1))max = _score[1];
+    if ((max < _score[2]) && (p != 2))max = _score[2];
     int ownscore = _score[p];
 
     char answer;
@@ -75,9 +76,8 @@ char StrategyWinRound::Getchoice(short game_type, int p, std::vector<int> _score
 
 char StrategyTeamplay::Getchoice(short game_type, int p, std::vector<int> _score, std::vector<std::vector<char>> _roundes, std::vector<char> _roundechoices) {
     char answer = 0;
-
-    if ((counter < 12) && (game_type == -1)) {
-        switch (counter)
+    if (moveCounter < 12) {
+        switch (moveCounter)
         {
         case 0:
             answer = 'C';
@@ -105,7 +105,7 @@ char StrategyTeamplay::Getchoice(short game_type, int p, std::vector<int> _score
             answer = 'C';
         }
     }
-    else if ((counter >= 12) && (ff == -1)) {
+    else if ((moveCounter >= 12) && (vectorEqualityFlag == -1)) {
         for (int i = 0; i < 12; i++) {
             std::vector<char> a = _roundes[i];
             acc0.push_back(a[0]);
@@ -122,8 +122,8 @@ char StrategyTeamplay::Getchoice(short game_type, int p, std::vector<int> _score
             game_type = 0;
     }
 
-    if ((game_type > 0) && (game_type != -1)) {
-        if (game_type == 1) {
+    if ((vectorEqualityFlag > 0) && (vectorEqualityFlag != -1)) {
+        if (vectorEqualityFlag == 1) {
             if (p == 0) {
                 if (_score[0] >= _score[1]) answer = 'D';
                 else answer = 'C';
@@ -133,7 +133,7 @@ char StrategyTeamplay::Getchoice(short game_type, int p, std::vector<int> _score
                 else answer = 'D';
             }
         }
-        else if (game_type == 2) {
+        else if (vectorEqualityFlag == 2) {
             if (p == 0) {
                 if (_score[0] >= _score[2]) answer = 'D';
                 else answer = 'C';
@@ -143,32 +143,44 @@ char StrategyTeamplay::Getchoice(short game_type, int p, std::vector<int> _score
                 else answer = 'D';
             }
         }
-        else if (game_type == 3) {
+        else if (vectorEqualityFlag == 3) {
             if (p == 1) {
                 if (_score[1] >= _score[2]) answer = 'D';
                 else answer = 'C';
             }
             if (p == 2) {
-                if (_score[1] > _score[2]) answer = 'C';
+                if (_score[1] >= _score[2]) answer = 'C';
                 else answer = 'D';
             }
         }
     }
-    else answer = 'D';
+    else if (vectorEqualityFlag == 0) answer = 'D';
+    if (game_type == 1)
+    {
+        std::cout << answer << " ";
+    }
 
-
-    counter++;
+    moveCounter++;
     return answer;
 };
 
 char StrategyRevengeful::Getchoice(short game_type, int p, std::vector<int> _score, std::vector<std::vector<char>> _roundes, std::vector<char> _roundechoices) {
     char answer = 0;
     if (((_roundechoices[0] == 'D') && (p != 0)) || ((_roundechoices[1] == 'D') && (p != 1)) || ((_roundechoices[2] == 'D') && (p != 2))) {
-        int tmp = rand() / 3;
+        int tmp = rand() % 3;
         if (tmp == 2)
             answer = 'C';
         else
             answer = 'D';
+    }
+    else
+    {
+        answer = 'C';
+    }
+
+    if (game_type == 1)
+    {
+        std::cout << answer << " ";
     }
     return answer;
 };

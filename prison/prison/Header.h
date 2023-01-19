@@ -1,4 +1,4 @@
-#pragma once 
+п»ї#pragma once 
 #include <iostream> 
 #include <sstream> 
 #include <string> 
@@ -7,41 +7,41 @@
 #include <map> 
 #include <vector> 
 
-class IStrategy 
+class IStrategy
 {
 public:
 	virtual char Getchoice(short f, int p, std::vector<int> _score, std::vector<std::vector<char>> _roundes, std::vector<char> _roundechoices);
 };
 
-class StrategyRand :public IStrategy 
+class StrategyRand :public IStrategy
 {
 public:
 	char Getchoice(short f, int p, std::vector<int> _score, std::vector<std::vector<char>> _roundes, std::vector<char> _roundechoices) override;
 };
 
-class StrategyAlwaysC :public IStrategy 
+class StrategyAlwaysC :public IStrategy
 {
 public:
 	char Getchoice(short f, int p, std::vector<int> _score, std::vector<std::vector<char>> _roundes, std::vector<char> _roundechoices) override;
 };
 
-class StrategyAlwaysD :public IStrategy 
+class StrategyAlwaysD :public IStrategy
 {
 public:
 	char Getchoice(short f, int p, std::vector<int> _score, std::vector<std::vector<char>> _roundes, std::vector<char> _roundechoices) override;
 };
 
-class StrategyWinRound :public IStrategy 
+class StrategyWinRound :public IStrategy
 {
 public:
 	char Getchoice(short f, int p, std::vector<int> _score, std::vector<std::vector<char>> _roundes, std::vector<char> _roundechoices) override;
 };
 
-class StrategyTeamplay :public IStrategy 
+class StrategyTeamplay :public IStrategy
 {
 private:
-	int counter = 0;
-	int ff = -1;
+	int moveCounter = 0;
+	int vectorEqualityFlag = -1;
 	int fp = 0;
 	std::vector<char> acc0;
 	std::vector<char> acc1;
@@ -53,19 +53,19 @@ public:
 	char Getchoice(short f, int p, std::vector<int> _score, std::vector<std::vector<char>> _roundes, std::vector<char> _roundechoices) override;
 };
 
-class StrategyRevengeful :public IStrategy 
+class StrategyRevengeful :public IStrategy
 {
 public:
 	char Getchoice(short f, int p, std::vector<int> _score, std::vector<std::vector<char>> _roundes, std::vector<char> _roundechoices) override;
 };
 
 
-class Score 
+class Score
 {
 protected:
-	typedef std::map<int, int> Playersglobalscore;//типа баллы, с неймингом то проблемы 
+	typedef std::map<int, int> Playersglobalscore;
 	Playersglobalscore playersglobalscore;
-	int player1gamepoints = 0, player2gamepoints = 0, player3gamepoints = 0;//типа (х2) игроки которые сейчас 
+	int player1gamepoints = 0, player2gamepoints = 0, player3gamepoints = 0;
 public:
 	void ShowGameScore(int, int, int, int);
 	std::vector<int> GetRoundScore(int, int, int);
@@ -76,19 +76,20 @@ public:
 	void ChangeGlobalScore(int, int, int);
 };
 
-class RoundResult 
+class RoundResult
 {
 public:
 	int player1_pay_off = 0, player2_pay_off = 0, player3_pay_off = 0;
 	char player1_choice = 0, player2_choice = 0, player3_choice = 0;
+	void SetChoice(int, int, int);
+	void SetPrisonersPayoff();
 	RoundResult(int, int, int);
 	RoundResult(std::vector<char>);
 	RoundResult();
-
-	void SetChoice(int, int, int);
-	void SetPrisonersPayoff();
 	std::vector<int> GetScore();
 };
 bool PlayersOfNewRounde(int*, int, int);
 
 Score Simulator(int, short, int, int, int, Score, std::vector<std::vector<char>>, std::map<int, IStrategy*>);
+
+int Game(short, std::map<int, IStrategy*>, int, int);

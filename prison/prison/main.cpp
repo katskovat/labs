@@ -1,4 +1,4 @@
-﻿#include "Header.h" 
+﻿#include "Header.h"
 
 class AbstractCreator
 {
@@ -63,16 +63,16 @@ int main(int argc, char* argv[])
             std::cin >> tmp;
             switch (tmp[0])
             {
-            case 'D'://68 
+            case 'D':
                 game_type = 1;
                 break;
-            case 'F'://70 
+            case 'F':
                 game_type = 2;
                 break;
-            case 'T'://84 
+            case 'T':
                 game_type = 3;
                 break;
-            case 'E'://69 
+            case 'E':
                 return 0;
             default:
                 int tmp2 = atoi(tmp);
@@ -86,33 +86,8 @@ int main(int argc, char* argv[])
         std::cout << "steps count: ";
         std::cin >> game_steps_number;
 
-        Score score;
-        std::vector<std::vector<char>> roundschoices(game_steps_number);//вектор векторов ходов 
-        if (game_type == 3) {//это с турниром 
-            int* players_of_this_rounde = new int[playerscount];
-            for (int i = 0; i < playerscount; i++)players_of_this_rounde[i] = i + 1;
-            int players_count_in_single_game = 3;
-            for (int i = 0; i < players_count_in_single_game; i++) std::cout << players_of_this_rounde[i] << " ";
-            std::cout << "\n";
-            score = Simulator(game_steps_number, game_type, players_of_this_rounde[0], players_of_this_rounde[1], players_of_this_rounde[2], score, roundschoices, players);
-            if (playerscount >= players_count_in_single_game)
-            {
-                while (PlayersOfNewRounde(players_of_this_rounde, playerscount, players_count_in_single_game)) {
-                    for (int i = 0; i < players_count_in_single_game; i++) std::cout << players_of_this_rounde[i] << " ";
-                    std::cout << "\n";
-                    score = Simulator(game_steps_number, game_type, players_of_this_rounde[0], players_of_this_rounde[1], players_of_this_rounde[2], score, roundschoices, players);
-                }
-            }
-            score.ShowBestGlobalScore();
-            return 0;
-        }
-        else if ((game_type == 1) || (game_type == 2)) {//ну и без 
-            //std::cout << "do something\n";
-            score = Simulator(game_steps_number, game_type, 0, 1, 2, score, roundschoices, players);
-            score.ShowBestGlobalScore();
-            return 0;
-        }
-        return -1;
+        Game(game_type, players, game_steps_number, playerscount);
+
     }
     else {
         for (int i = 1; i < argc - 1; i++) {
@@ -140,32 +115,7 @@ int main(int argc, char* argv[])
             }
         }
         game_steps_number = atoi(argv[argc - 1]);
-        Score score;
-        std::vector<std::vector<char>> roundschoices(game_steps_number);//вектор векторов ходов 
-        if (game_type == 3) {//это с турниром 
-            int* players_of_this_rounde = new int[playerscount];
-            for (int i = 0; i < playerscount; i++)players_of_this_rounde[i] = i + 1;
-            int players_count_in_single_game = 3;
-            for (int i = 0; i < players_count_in_single_game; i++) std::cout << players_of_this_rounde[i] << " ";
-            std::cout << "\n";
-            score = Simulator(game_steps_number, game_type, players_of_this_rounde[0], players_of_this_rounde[1], players_of_this_rounde[2], score, roundschoices, players);
-            if (playerscount >= players_count_in_single_game)
-            {
-                while (PlayersOfNewRounde(players_of_this_rounde, playerscount, players_count_in_single_game)) {
-                    for (int i = 0; i < players_count_in_single_game; i++) std::cout << players_of_this_rounde[i] << " ";
-                    std::cout << "\n";
-                    score = Simulator(game_steps_number, game_type, players_of_this_rounde[0], players_of_this_rounde[1], players_of_this_rounde[2], score, roundschoices, players);
-                }
-            }
-            score.ShowBestGlobalScore();
-            return 0;
-        }
-        else if ((game_type == 1) || (game_type == 2)) {//ну и без 
-            std::cout << "do something";
-            score = Simulator(game_steps_number, game_type, 0, 1, 2, score, roundschoices, players);
-            score.ShowBestGlobalScore();
-            return 0;
-        }
-        return -1;
+
+        Game(game_type, players, game_steps_number, playerscount);
     }
 }

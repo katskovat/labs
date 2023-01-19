@@ -1,13 +1,13 @@
 #include "Header.h"
 
-void Score::ChangeRoundScore(int player1pointsroundchange, int player2pointsroundchange, int player3pointsroundchange) 
+void Score::ChangeRoundScore(int player1pointsroundchange, int player2pointsroundchange, int player3pointsroundchange)
 {
 	player1gamepoints += player1pointsroundchange;
 	player2gamepoints += player2pointsroundchange;
 	player3gamepoints += player3pointsroundchange;
 };
 
-void Score::ChangeGlobalScore(int player1_place, int player2_place, int player3_place) 
+void Score::ChangeGlobalScore(int player1_place, int player2_place, int player3_place)
 {
 	typename Playersglobalscore::iterator it1 = playersglobalscore.find(player1_place);
 	if (it1 == playersglobalscore.end())
@@ -26,9 +26,9 @@ void Score::ChangeGlobalScore(int player1_place, int player2_place, int player3_
 	playersglobalscore[player3_place] += player3gamepoints;
 };
 
-void Score::ShowGameScore(int player1_place, int player2_place, int player3_place, int game_type) 
+void Score::ShowGameScore(int player1_place, int player2_place, int player3_place, int game_type)
 {
-	if (game_type != 2) 
+	if (game_type != 2)
 	{
 		std::cout << "score in this game changed by: " << "player" << player1_place << ": " << player1gamepoints << ", " << "player" << player2_place << ": " << player2gamepoints << ",  " << "player" << player3_place << ": " << player3gamepoints << "\n";
 	}
