@@ -68,7 +68,7 @@ protected:
 	int player1gamepoints = 0, player2gamepoints = 0, player3gamepoints = 0;
 public:
 	void ShowGameScore(int, int, int, int);
-	std::vector<int> GetRoundScore(int, int, int);
+	std::vector<int> GetRoundScore();
 	void ShowGlobalScore();
 	void ShowBestGlobalScore();
 	void MakeItZero();

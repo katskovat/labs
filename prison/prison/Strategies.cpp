@@ -52,7 +52,7 @@ char StrategyAlwaysD::Getchoice(short game_type, int p, std::vector<int> _score,
 
 char StrategyWinRound::Getchoice(short game_type, int p, std::vector<int> _score, std::vector<std::vector<char>> _roundes, std::vector<char> _roundechoices) {
     int max = 0;
-    if ((max < _score[0]) && (p != 0))max = _score[0];;
+    if ((max < _score[0]) && (p != 0))max = _score[0];
     if ((max < _score[1]) && (p != 1))max = _score[1];
     if ((max < _score[2]) && (p != 2))max = _score[2];
     int ownscore = _score[p];
