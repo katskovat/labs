@@ -8,12 +8,15 @@ Score Simulator(int game_steps_number, short game_type, int player1_place, int p
 
 	for (int i = 0; i < game_steps_number; i++)
 	{
-		_score = score.GetRoundScore();
+		_score = score.GetRoundScore(player1_place, player2_place, player3_place);
 		std::vector<char>simulationroundchoices(3);
 
 		for (int j = 0; j < 3; j++) {
-			int tmp = _score[j];
-			simulationroundchoices[j] = players[j]->Getchoice(game_type, tmp, _score, roundschoices, simulationroundchoices);
+			if (i > 0)
+				simulationroundchoices[j] = players[j]->Getchoice(game_type, j, _score, roundschoices, roundschoices[i - 1]);
+			else 
+				simulationroundchoices[j] = players[j]->Getchoice(game_type, j, _score, roundschoices, simulationroundchoices);
+
 			roundschoices[i].push_back(simulationroundchoices[j]);
 		}
 

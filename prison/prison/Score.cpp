@@ -34,7 +34,7 @@ void Score::ShowGameScore(int player1_place, int player2_place, int player3_plac
 	}
 };
 
-std::vector<int> Score::GetRoundScore() {
+std::vector<int> Score::GetRoundScore(int player1_place, int player2_place, int player3_place) {
 	std::vector<int> _score(3);
 	_score = { player1gamepoints,player2gamepoints,player3gamepoints };
 	return _score;
